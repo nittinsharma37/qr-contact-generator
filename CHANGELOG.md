@@ -1,6 +1,5 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
 
 ## [1.0.0] - 2025-10-29
 
@@ -11,3 +10,10 @@ All notable changes to this project will be documented in this file.
 - vCard format support
 - High-resolution PNG output
 - Progress tracking and error reporting
+
+
+
+## [1.0.1] - 2025-10-29
+
+### Fixed
+- Bug fixes

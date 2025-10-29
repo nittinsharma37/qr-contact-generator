@@ -1,6 +1,6 @@
 {
   "name": "qr-contact-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Node.js CLI tool that converts Excel contacts into vCard-formatted QR codes",
   "main": "src/generate-qr.js",
   "bin": {
@@ -22,7 +22,7 @@
     "contact-card",
     "bulk-generator"
   ],
-  "author": "Nittin Sharma <your-email@example.com> (https://github.com/nittinsharma37)",
+  "author": "Nittin Sharma <nittinsharma37@gmail.com.com> (https://github.com/nittinsharma37)",
   "license": "MIT",
   "repository": {
     "type": "git",
