@@ -23,7 +23,7 @@ const argv = yargs(hideBin(process.argv))
     })
     .help()
     .version()
-    .epilog('For more information, visit https://github.com/yourusername/qr-contact-generator')
+    .epilog('For more information, visit https://github.com/nittinsharma37/qr-contact-generator')
     .argv;
 
 // --- CONFIGURATION ---
