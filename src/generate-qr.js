@@ -1,12 +1,34 @@
+#!/usr/bin/env node
 const vCardsJS = require('vcards-js');
 const QRCode = require('qrcode');
 const path = require('path');
 const fs = require('fs');
 const XLSX = require('xlsx');
+const yargs = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers');
+
+// --- ARGUMENT PARSING ---
+const argv = yargs(hideBin(process.argv))
+    .option('input', {
+        alias: 'i',
+        type: 'string',
+        description: 'Path to the input Excel file',
+        default: path.join(__dirname, '..', 'sample-data', 'contacts.xlsx') // Adjusted default path for CLI usage
+    })
+    .option('output', {
+        alias: 'o',
+        type: 'string',
+        description: 'Folder where QR codes will be saved',
+        default: 'qr-codes'
+    })
+    .help()
+    .version()
+    .epilog('For more information, visit https://github.com/yourusername/qr-contact-generator')
+    .argv;
 
 // --- CONFIGURATION ---
-const EXCEL_FILE = 'sample-data/contacts.xlsx'; // Your Excel file name
-const OUTPUT_FOLDER = 'qr-codes'; // Folder where QR codes will be saved
+const EXCEL_FILE = argv.input; 
+const OUTPUT_FOLDER = argv.output; 
 
 // --- 1. READ EXCEL FILE ---
 function readContactsFromExcel(filePath) {
@@ -22,8 +44,10 @@ function readContactsFromExcel(filePath) {
         console.log(`📊 Found ${data.length} contacts in Excel file\n`);
         return data;
     } catch (error) {
-        console.error('❌ Error reading Excel file:', error.message);
-        console.log('\n💡 Make sure the Excel file exists and has the correct format.');
+        // Provide more detailed feedback on file path
+        console.error(`❌ Error reading Excel file at: ${path.resolve(filePath)}`);
+        console.error('Error message:', error.message);
+        console.log('\n💡 Make sure the Excel file exists and has the correct format, or use the -i option.');
         process.exit(1);
     }
 }
@@ -80,7 +104,8 @@ async function generateQrCodeForContact(contact, outputFolder) {
         // Sanitize and create filename
         const namePart = sanitizeFilename(`${firstName}-${lastName}`);
         const mobilePart = sanitizeFilename(mobile);
-        const filename = `${namePart}-${mobilePart}.png`;
+        // Ensure filename is not just an empty string followed by .png
+        const filename = `${namePart || 'contact'}-${mobilePart || Date.now()}.png`; 
         const outputPath = path.join(outputFolder, filename);
         
         // Generate QR code
@@ -104,7 +129,9 @@ async function generateQrCodeForContact(contact, outputFolder) {
 // --- 5. MAIN FUNCTION: PROCESS ALL CONTACTS ---
 async function generateBulkQrCodes() {
     console.log('🚀 Starting Bulk QR Code Generation...\n');
-    
+    console.log(`🗂️ Input File: ${path.resolve(EXCEL_FILE)}`);
+    console.log(`📁 Output Folder: ${path.resolve(OUTPUT_FOLDER)}\n`);
+
     // Create output folder if it doesn't exist
     if (!fs.existsSync(OUTPUT_FOLDER)) {
         fs.mkdirSync(OUTPUT_FOLDER, { recursive: true });
@@ -146,7 +173,7 @@ async function generateBulkQrCodes() {
     console.log('='.repeat(60));
     console.log(`✅ Successful: ${successCount}`);
     console.log(`❌ Failed: ${failCount}`);
-    console.log(`📁 Output folder: ${path.join(__dirname, OUTPUT_FOLDER)}`);
+    console.log(`📁 Output folder: ${path.resolve(OUTPUT_FOLDER)}`);
     console.log('='.repeat(60) + '\n');
 }
 
@@ -158,22 +185,16 @@ generateBulkQrCodes().catch(error => {
 
 // --- EXCEL FILE FORMAT REFERENCE ---
 console.log(`
-📋 EXCEL FILE FORMAT (${EXCEL_FILE}):
+📋 EXCEL FILE FORMAT REFERENCE:
 ----------------------------------------
-Column headers (case-insensitive):
-- firstName (or FirstName)
-- lastName (or LastName)
-- organization (or Organization)
-- title (or Title/designation)
-- email (or Email)
-- workPhone (or WorkPhone/mobile/Mobile)
-- website (or Website)
-- address (or Address)
-- note (or Note)
-
-Example:
-| firstName | lastName | organization | title | email | workPhone | website | address | note |
-|-----------|----------|--------------|-------|-------|-----------|---------|---------|------|
-| Nittin    | Sharma   | Tech Corp    | Dev   | n@..  | +91-98... | http..  | 123 St  | ...  |
+The tool looks for the following column headers (case-insensitive):
+- firstName, lastName
+- organization
+- title (or designation)
+- email
+- workPhone (or mobile/Mobile)
+- website
+- address
+- note
 ----------------------------------------
 `);
