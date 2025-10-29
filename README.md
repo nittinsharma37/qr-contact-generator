@@ -91,7 +91,7 @@ See the LICENSE file for details.
 
 ## Author
 
-<p align="center">
+<p>
   Developed with ❤️ by 
   <strong>
     <a href="https://github.com/nittinsharma37" target="_blank" style="text-decoration: none;">
