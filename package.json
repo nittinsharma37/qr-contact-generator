@@ -1,6 +1,6 @@
 {
   "name": "qr-contact-generator",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "A Node.js CLI tool that converts Excel contacts into vCard-formatted QR codes",
   "main": "src/generate-qr.js",
   "bin": {
