@@ -5,7 +5,7 @@ const fs = require('fs');
 const XLSX = require('xlsx');
 
 // --- CONFIGURATION ---
-const EXCEL_FILE = 'contacts.xlsx'; // Your Excel file name
+const EXCEL_FILE = 'sample-data/contacts.xlsx'; // Your Excel file name
 const OUTPUT_FOLDER = 'qr-codes'; // Folder where QR codes will be saved
 
 // --- 1. READ EXCEL FILE ---
