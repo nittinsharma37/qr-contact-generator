@@ -145,7 +145,7 @@ If you find this project helpful, please give it a ⭐ on [GitHub](https://githu
 
 ---
 
-<p align="center">Developed with ❤️ by <strong><a href="https://github.com/nittinsharma37">Nittin Sharma</a></strong></p>
+<p >Developed with ❤️ by <strong><a href="https://github.com/nittinsharma37">Nittin Sharma</a></strong></p>
 
 
 ```
