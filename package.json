@@ -1,0 +1,17 @@
+{
+  "name": "qr-contact-generator",
+  "version": "1.0.0",
+  "description": "Bulk QR Code generator for contact vCards from Excel files.",
+  "main": "src/generate-qr.js",
+  "scripts": {
+    "start": "node src/generate-qr.js"
+  },
+  "keywords": ["qr-code", "vcard", "excel", "contacts", "generator", "nodejs"],
+  "author": "Nittin Sharma",
+  "license": "MIT",
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "vcards-js": "^2.10.0",
+    "xlsx": "^0.18.5"
+  }
+}

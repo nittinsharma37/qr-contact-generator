@@ -1,0 +1,12 @@
+# Node.js
+node_modules/
+.env
+*.log
+
+# Output
+qr-codes/
+sample-data/*.xlsx
+
+# System
+.DS_Store
+Thumbs.db
